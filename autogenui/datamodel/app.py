@@ -49,3 +49,15 @@ class TeamResult(BaseModel):
     task_result: TaskResult
     usage: str
     duration: float
+
+@dataclass
+class LocalModelConfig:
+    model: Optional[str] = "NotRequired"
+    ap_key: Optional[str] = "NotRequired"
+    base_url: Optional[str] = "http://0.0.0.0:4000"
+    price: Optional[List[int]] = [0,0]
+
+@dataclass
+class LocalConfig:
+    config_list: List[LocalModelConfig]
+    cache_seed: Optional[str] = None

@@ -1,0 +1,27 @@
+{
+    "name": "weather_team",
+    "participants": [
+      {
+        "name": "writing_agent",
+        "model_client": {
+          "model": "llama3.2:latest",
+          "model_type": "OllamaProxyClient"
+        },
+        "tools": [
+          {
+            "name": "get_weather",
+            "description": "Get the weather for a city",
+            "content": "async def get_weather(city: str) -> str:\n    return f\"The weather in {city} is 73 degrees and Sunny.\""
+          }
+        ],
+        "agent_type": "AssistantAgent"
+      }
+    ],
+    "termination_condition": {
+      "termination_type": "MaxMessageTermination",
+      "max_messages": 5
+    },
+    "team_type": "RoundRobinGroupChat",
+    "model_client": null
+  }
+  
