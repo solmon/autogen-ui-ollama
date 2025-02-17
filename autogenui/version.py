@@ -1,2 +1,2 @@
-VERSION = "0.0.04a"
-APP_NAME = "autogenui"
+VERSION = "0.0.1"
+APP_NAME = "autogenui-ollama"

@@ -1,6 +1,7 @@
 
 from .datamodel import AgentConfig, ModelConfig, ToolConfig, TerminationConfig, TeamConfig
-from autogen_agentchat.agents import AssistantAgent, CodingAssistantAgent
+from autogen_agentchat.agents import AssistantAgent, CodingAssistantAgent, ConversableAgent
+from autogen import UserProxyAgent
 from autogen_agentchat.teams import RoundRobinGroupChat, SelectorGroupChat
 from autogen_ext.models import OpenAIChatCompletionClient
 from autogen_agentchat.task import MaxMessageTermination, StopMessageTermination, TextMentionTermination
@@ -25,6 +26,8 @@ class Provider():
                 raise ValueError("Invalid model config")
         model = None
         if model_config.model_type == "OpenAIChatCompletionClient":
+            model = OpenAIChatCompletionClient(model=model_config.model)
+        elif model_config.model_type == "OllamaProxyClient":
             model = OpenAIChatCompletionClient(model=model_config.model)
         return model
 

@@ -8,7 +8,7 @@ from autogen_agentchat.base._task import TaskResult
 @dataclass
 class ModelConfig:
     model: str
-    model_type: Literal["OpenAIChatCompletionClient"]
+    model_type: Literal["OpenAIChatCompletionClient","OllamaProxyClient"]
 
 
 @dataclass
