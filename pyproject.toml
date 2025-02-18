@@ -3,9 +3,8 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "autogenui" 
+name = "autogenui-ollama" 
 authors = [
-  { name="Victor Dibia", email="victor.dibia@gmail.com" },
   { name="Solmon", email="solmon@gmail.com" }
 ]
 description = "autogen ui: a ui interface for the autogen library "
@@ -24,8 +23,9 @@ dependencies = [
     "fastapi",
     "typer",
     "uvicorn", 
-    "autogen-agentchat @ git+https://github.com/microsoft/autogen.git#subdirectory=python/packages/autogen-agentchat",
-    "autogen-ext @ git+https://github.com/microsoft/autogen.git#subdirectory=python/packages/autogen-ext"
+    "autogen",
+    "autogen-agentchat",
+    "autogen-ext"
 ]
 optional-dependencies = {web = ["fastapi", "uvicorn"]}
 
@@ -55,7 +55,7 @@ filterwarnings = [
 
 
 [project.urls]
-"Homepage" = "https://github.com/victordibia/autogenui"
+"Homepage" = "https://github.com/solmon/autogen-ui-ollama"
 "Bug Tracker" = "https://github.com/victordibia/autogenui/issues"
 
 [project.scripts]

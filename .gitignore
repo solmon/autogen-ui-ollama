@@ -168,5 +168,5 @@ cython_debug/
 #.idea/
 
 .yarn
-autogenui/bin
+agvenv/bin
 autogenui/share

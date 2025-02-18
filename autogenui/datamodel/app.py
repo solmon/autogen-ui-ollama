@@ -1,6 +1,6 @@
 
 from typing import Any, List, Literal, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pydantic.dataclasses import dataclass
 from autogen_agentchat.base._task import TaskResult
 
@@ -8,7 +8,7 @@ from autogen_agentchat.base._task import TaskResult
 @dataclass
 class ModelConfig:
     model: str
-    model_type: Literal["OpenAIChatCompletionClient","OllamaProxyClient"]
+    model_type: Literal["OpenAIChatCompletionClient", "OllamaProxyClient"]
 
 
 @dataclass
@@ -55,9 +55,13 @@ class LocalModelConfig:
     model: Optional[str] = "NotRequired"
     ap_key: Optional[str] = "NotRequired"
     base_url: Optional[str] = "http://0.0.0.0:4000"
-    price: Optional[List[int]] = [0,0]
+    price: List[float] = Field(default_factory=list)
 
 @dataclass
 class LocalConfig:
     config_list: List[LocalModelConfig]
     cache_seed: Optional[str] = None
+
+@dataclass
+class AgentFlowSpec:
+    name: Optional[str] = None

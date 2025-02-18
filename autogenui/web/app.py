@@ -11,16 +11,17 @@ import datetime
 import traceback
 import asyncio
 from pathlib import Path
+import sys
+sys.path.append("..")
 
 # Import your team manager components
 from autogen_agentchat import EVENT_LOGGER_NAME
-from autogen_agentchat.messages import AgentMessage, ChatMessage, ToolCallMessage, ToolCallResultMessage
-from autogen_core.base import CancellationToken
+from autogen_agentchat.messages import TextMessage, ChatMessage, ToolCallRequestEvent, ToolCallExecutionEvent
+# from autogen_core.code_executor import CancellationToken
 from ..manager import TeamManager
 from ..datamodel import TeamResult, TaskResult
 
 # Request models
-
 
 class GenerateWebRequest(BaseModel):
     prompt: str

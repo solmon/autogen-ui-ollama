@@ -5,7 +5,6 @@ import os
 
 app = typer.Typer(invoke_without_command=True)
 
-
 @app.callback()
 def main(
     host: str = "127.0.0.1",

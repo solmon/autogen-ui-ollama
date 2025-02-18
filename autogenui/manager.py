@@ -3,8 +3,8 @@ import time
 import json
 from pathlib import Path
 from .datamodel import TeamResult, TaskResult, TeamConfig
-from autogen_agentchat.messages import AgentMessage, ChatMessage
-from autogen_core.base import CancellationToken
+from autogen_agentchat.messages import  TextMessage, ChatMessage
+from autogen_core import  CancellationToken
 from .provider import Provider
 from .datamodel import TeamConfig
 
@@ -37,8 +37,8 @@ class TeamManager:
         self,
         task: str,
         team_config: Optional[Union[TeamConfig, str, Path]] = None,
-        cancellation_token: Optional[CancellationToken] = None
-    ) -> AsyncGenerator[Union[AgentMessage, ChatMessage, TaskResult], None]:
+        cancellation_token: Optional[CancellationToken] = None        
+    ) -> AsyncGenerator[Union[TextMessage, ChatMessage, TaskResult], None]:
         """Stream the team's execution results with optional JSON config loading"""
         start_time = time.time()
 
@@ -81,7 +81,7 @@ class TeamManager:
         self,
         task: str,
         team_config: Optional[Union[TeamConfig, str, Path]] = None,
-        cancellation_token: Optional[CancellationToken] = None
+        cancellation_token: Optional[CancellationToken] = None        
     ) -> TeamResult:
         """Non-streaming run method with optional JSON config loading"""
         start_time = time.time()

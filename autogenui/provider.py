@@ -1,14 +1,16 @@
 
 from .datamodel import AgentConfig, ModelConfig, ToolConfig, TerminationConfig, TeamConfig, LocalConfig, LocalModelConfig
-from autogen_agentchat.agents import AssistantAgent, CodingAssistantAgent, ConversableAgent
-from autogen import UserProxyAgent
+# from autogen_agentchat.agents import AssistantAgent, CodingAssistantAgent, ConversableAgent
+from autogen_agentchat.agents import AssistantAgent, CodeExecutorAgent, UserProxyAgent
+# from autogen import UserProxyAgent
 from autogen_agentchat.teams import RoundRobinGroupChat, SelectorGroupChat
-from autogen_ext.models import OpenAIChatCompletionClient
-from autogen_agentchat.task import MaxMessageTermination, StopMessageTermination, TextMentionTermination
-from autogen_core.components.tools import FunctionTool
+from autogen_ext.models.openai import OpenAIChatCompletionClient
+from autogen_agentchat.conditions import MaxMessageTermination, StopMessageTermination, TextMentionTermination
+# from autogen_core.components.tools import FunctionTool
+from autogen_ext.tools.code_execution import PythonCodeExecutionTool
 
 
-AgentTypes = AssistantAgent | CodingAssistantAgent
+AgentTypes = AssistantAgent | CodeExecutorAgent
 TeamTypes = RoundRobinGroupChat | SelectorGroupChat
 ModelTypes = OpenAIChatCompletionClient | None | LocalConfig
 TerminationTypes = MaxMessageTermination | StopMessageTermination | TextMentionTermination
@@ -76,13 +78,13 @@ class Provider():
             raise ValueError(
                 f"Failed to create function from string: {str(e)}")
 
-    def load_tool(self, tool_config: ToolConfig | dict) -> FunctionTool:
+    def load_tool(self, tool_config: ToolConfig | dict) -> PythonCodeExecutionTool:
         if isinstance(tool_config, dict):
             try:
                 tool_config = ToolConfig(**tool_config)
             except:
                 raise ValueError("Invalid tool config")
-        tool = FunctionTool(name=tool_config.name, description=tool_config.description,
+        tool = PythonCodeExecutionTool(name=tool_config.name, description=tool_config.description,
                             func=self._func_from_string(tool_config.content))
         return tool
 
