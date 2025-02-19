@@ -1,8 +1,6 @@
-
-from .datamodel import AgentConfig, ModelConfig, ToolConfig, TerminationConfig, TeamConfig, LocalConfig, LocalModelConfig
+from .datamodel import AgentConfig, ModelConfig, ToolConfig, TerminationConfig, TeamConfig
 # from autogen_agentchat.agents import AssistantAgent, CodingAssistantAgent, ConversableAgent
 from autogen_agentchat.agents import AssistantAgent, CodeExecutorAgent, UserProxyAgent
-# from autogen import UserProxyAgent
 from autogen_agentchat.teams import RoundRobinGroupChat, SelectorGroupChat
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_agentchat.conditions import MaxMessageTermination, StopMessageTermination, TextMentionTermination
@@ -12,7 +10,7 @@ from autogen_ext.tools.code_execution import PythonCodeExecutionTool
 
 AgentTypes = AssistantAgent | CodeExecutorAgent
 TeamTypes = RoundRobinGroupChat | SelectorGroupChat
-ModelTypes = OpenAIChatCompletionClient | None | LocalConfig
+ModelTypes = OpenAIChatCompletionClient | None 
 TerminationTypes = MaxMessageTermination | StopMessageTermination | TextMentionTermination
 
 
@@ -30,13 +28,11 @@ class Provider():
         if model_config.model_type == "OpenAIChatCompletionClient":
             model = OpenAIChatCompletionClient(model=model_config.model)
         elif model_config.model_type == "OllamaProxyClient":
-            model = OpenAIChatCompletionClient(model=model_config.model)
+            model = OpenAIChatCompletionClient(model=model_config.model, 
+            api_key=model_config.api_key, 
+            base_url=model_config.base_url, 
+            model_capabilities=model_config.model_capabilities)
         return model
-
-    def load_local_model(self) -> ModelTypes:
-        model_config = None
-        model_config = LocalConfig()
-        return model_config
 
     def _func_from_string(self, content: str) -> callable:
         """

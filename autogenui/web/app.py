@@ -66,10 +66,15 @@ class ConnectionManager:
 # Initialize FastAPI
 app = FastAPI()
 
+allowed_origins = [
+    "http://localhost:3000",
+    "http://localhost:3001"
+]
+
 # CORS middleware setup
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Add your frontend URL
+    allow_origins=allowed_origins,  # Add your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -147,10 +152,10 @@ async def generate(req: GenerateWebRequest):
             cancellation_token=None
         ):
             try:
-                if isinstance(message, (AgentMessage, ChatMessage)):
+                if isinstance(message, (TextMessage, ChatMessage)):
                     content = message.content if hasattr(
                         message, 'content') else str(message)
-                    if isinstance(message, ToolCallMessage) or isinstance(message, ToolCallResultMessage):
+                    if isinstance(message, ToolCallRequestEvent) or isinstance(message, ToolCallExecutionEvent):
                         content = "".join([str(tool_call)
                                            for tool_call in message.content])
                     await websocket.send_json({

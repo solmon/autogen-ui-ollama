@@ -47,7 +47,7 @@ class TeamManager:
                 team_config = await self.load_team_config(team_config)
             elif team_config is None:
                 # Load default team config if none provided
-                team_config = await self.load_team_config("notebooks/default_team.json")
+                team_config = await self.load_team_config("notebooks/ollama_team.json")
 
             # Use provider to create team from config
             team = self.provider.load_team(team_config)

@@ -5,7 +5,14 @@
         "name": "writing_agent",
         "model_client": {
           "model": "llama3.2:latest",
-          "model_type": "OllamaProxyClient"
+          "model_type": "OllamaProxyClient",
+          "api_key": "NotRequiredSinceWeAreLocal",
+            "base_url": "http://0.0.0.0:4000",
+            "model_capabilities": {
+                "json_output": false,
+                "vision": false,
+                "function_calling": false
+            }
         },
         "tools": [
           {
