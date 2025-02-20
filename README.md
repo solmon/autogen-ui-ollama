@@ -9,6 +9,12 @@ The hello world for building a UI interface with AutoGen AgentChat API.
 
 Example UI to demonstrate how to build interfaces using the [AutoGen AgentChat](https://github.com/microsoft/autogen) API. The UI is built using Next.js and web apis built using FastApi.
 
+# Changes from original repo
+Following changes are introduced from the original repo:
+
+1) Migrated to the 0.47 version of autogen.
+2) Added support for running local ollama models
+
 ## What Does the App Do?
 
 ![AutoGen UI Flow Diagram](docs/images/flowdiag.png)
@@ -127,29 +133,3 @@ yarn build
 ## Roadmap
 
 There isnt really much of a roadmap for this project. It is meant as a simple example to get started with the AutoGen AgentChat API. For a more complete example, take a look at the [AutoGen Studio](https://github.com/microsoft/autogen/tree/main/python/packages/autogen-studio) project.
-
-## References
-
-- [AutoGen Studio](https://arxiv.org/abs/2308.08155).
-
-```
-@inproceedings{dibia2024autogen,
-  title={AutoGen Studio: A No-Code Developer Tool for Building and Debugging Multi-Agent Systems},
-  author={Dibia, Victor and Chen, Jingya and Bansal, Gagan and Syed, Suff and Fourney, Adam and Zhu, Erkang and Wang, Chi and Amershi, Saleema},
-  journal={EMNLP 2024},
-  year={2024}
-}
-```
-
-- [AutoGen](https://arxiv.org/abs/2408.15247).
-
-```
-@inproceedings{wu2023autogen,
-      title={AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation Framework},
-      author={Qingyun Wu and Gagan Bansal and Jieyu Zhang and Yiran Wu and Shaokun Zhang and Erkang Zhu and Beibin Li and Li Jiang and Xiaoyun Zhang and Chi Wang},
-      year={2023},
-      eprint={2308.08155},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI}
-}
-```
