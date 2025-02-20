@@ -62,15 +62,18 @@ class ConnectionManager:
         """Check if a session exists and is ready"""
         return session_id in self.active_connections and self.connection_ready.get(session_id, False)
 
-
 # Initialize FastAPI
 app = FastAPI()
 
 allowed_origins = [
-    "http://localhost:3000",
-    "http://localhost:3001"
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+    "http://localhost:3001/",
+    "http://127.0.0.1:3001/",
+    "localhost:3001",
 ]
 
+# allowed_origins = ["*"]
 # CORS middleware setup
 app.add_middleware(
     CORSMiddleware,
@@ -82,6 +85,14 @@ app.add_middleware(
 
 # Create API router
 api = FastAPI(root_path="/api")
+
+api.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,  # Add your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Initialize managers
 connection_manager = ConnectionManager()
@@ -213,7 +224,6 @@ async def generate(req: GenerateWebRequest):
 
 # Mount the API router
 app.mount("/api", api)
-
 
 @app.get("/")
 async def root():

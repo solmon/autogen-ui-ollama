@@ -2,13 +2,18 @@ from typing_extensions import Annotated
 import typer
 import uvicorn
 import os
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("server.sol")
+logger.setLevel(logging.INFO)
 
 app = typer.Typer(invoke_without_command=True)
 
 @app.callback()
 def main(
-    host: str = "127.0.0.1",
-    port: int = 8081,
+    host: str = "0.0.0.0",
+    port: int = 8080,
     workers: int = 1,
     reload: Annotated[bool, typer.Option("--reload")] = True,
     docs: bool = False,
@@ -18,6 +23,7 @@ def main(
     """
 
     os.environ["AUTOGENUI_API_DOCS"] = str(docs)
+    logger.info("Running server")
 
     uvicorn.run(
         "autogenui.web.app:app",
@@ -34,6 +40,7 @@ def models():
 
 
 def run():
+    logger.info("Before App")
     app()
 
 

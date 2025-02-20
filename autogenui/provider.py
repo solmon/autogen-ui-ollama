@@ -30,7 +30,7 @@ class Provider():
         elif model_config.model_type == "OllamaProxyClient":
             model = OpenAIChatCompletionClient(model=model_config.model, 
             api_key=model_config.api_key, 
-            base_url=model_config.base_url, 
+            base_url=model_config.base_url,
             model_capabilities=model_config.model_capabilities)
         return model
 
