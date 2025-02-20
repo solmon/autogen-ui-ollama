@@ -11,7 +11,7 @@
             "model_capabilities": {
                 "json_output": false,
                 "vision": false,
-                "function_calling": false
+                "function_calling": true
             }
         },
         "tools": [
@@ -26,7 +26,7 @@
     ],
     "termination_condition": {
       "termination_type": "MaxMessageTermination",
-      "max_messages": 5
+      "max_messages": 100
     },
     "team_type": "RoundRobinGroupChat",
     "model_client": null

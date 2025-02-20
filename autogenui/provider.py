@@ -5,7 +5,8 @@ from autogen_agentchat.teams import RoundRobinGroupChat, SelectorGroupChat
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_agentchat.conditions import MaxMessageTermination, StopMessageTermination, TextMentionTermination
 # from autogen_core.components.tools import FunctionTool
-from autogen_ext.tools.code_execution import PythonCodeExecutionTool
+# from autogen_ext.tools.code_execution import PythonCodeExecutionTool
+from autogen_core.tools import FunctionTool
 
 
 AgentTypes = AssistantAgent | CodeExecutorAgent
@@ -31,7 +32,11 @@ class Provider():
             model = OpenAIChatCompletionClient(model=model_config.model, 
             api_key=model_config.api_key, 
             base_url=model_config.base_url,
-            model_capabilities=model_config.model_capabilities)
+            model_info={"json_output": False,
+            "function_calling": True,
+            "vision": False,
+            "family": "unknown",},
+            )
         return model
 
     def _func_from_string(self, content: str) -> callable:
@@ -74,13 +79,13 @@ class Provider():
             raise ValueError(
                 f"Failed to create function from string: {str(e)}")
 
-    def load_tool(self, tool_config: ToolConfig | dict) -> PythonCodeExecutionTool:
+    def load_tool(self, tool_config: ToolConfig | dict) -> FunctionTool:
         if isinstance(tool_config, dict):
             try:
                 tool_config = ToolConfig(**tool_config)
             except:
                 raise ValueError("Invalid tool config")
-        tool = PythonCodeExecutionTool(name=tool_config.name, description=tool_config.description,
+        tool = FunctionTool(name=tool_config.name, description=tool_config.description,
                             func=self._func_from_string(tool_config.content))
         return tool
 
