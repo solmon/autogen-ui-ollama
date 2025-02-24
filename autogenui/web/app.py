@@ -163,11 +163,13 @@ async def generate(req: GenerateWebRequest):
             cancellation_token=None
         ):
             try:
-                if isinstance(message, (TextMessage, ChatMessage)):
+                # if isinstance(message, (TextMessage, ChatMessage)):
+                if isinstance(message, TextMessage):
                     content = message.content if hasattr(
                         message, 'content') else str(message)
-                    if isinstance(message, ToolCallRequestEvent) or isinstance(message, ToolCallExecutionEvent):
-                        content = "".join([str(tool_call)
+                
+                if isinstance(message, ToolCallRequestEvent) or isinstance(message, ToolCallExecutionEvent):
+                    content = "".join([str(tool_call)
                                            for tool_call in message.content])
                     await websocket.send_json({
                         "type": "message",
